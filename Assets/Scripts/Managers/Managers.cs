@@ -17,6 +17,7 @@ public class Managers : MonoBehaviour
 
     public GameManager gameManager;
     public DataManager dataManager;
+    public StatusManager statusManager;
 
     void Awake()
     {
@@ -32,5 +33,6 @@ public class Managers : MonoBehaviour
 
         gameManager = GetComponentInChildren<GameManager>();
         dataManager = GetComponentInChildren<DataManager>();
+        statusManager = GetComponentInChildren<StatusManager>();
     }
 }
