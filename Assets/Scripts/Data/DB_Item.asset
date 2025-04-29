@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0eb86367e2ea20949b17b051e2ace1e3, type: 3}
-  m_Name: DB_Equipment
+  m_Name: DB_Item
   m_EditorClassIdentifier: 
   CSV: {fileID: 4900000, guid: 65c07d2c26f0aee42a5f2d4dd8e30d6f, type: 3}

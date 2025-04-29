@@ -1,3 +1,4 @@
 index,name,attackBonus,defenseBonus,null
 1,sword,10,0,null
 2,shiled,0,5,null
+3,portion,0,0,null

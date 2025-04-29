@@ -3,15 +3,16 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class EquipmentData
+public class ItemData
 {
     public int index;
     public string name;
     public int attackBonus;
     public int defenseBonus;
 }
-[CreateAssetMenu(fileName = "DB_Equipment", menuName = "DB/Equipment", order = -1)]
-public class DB_Equipment : ScriptableObjectData
+
+[CreateAssetMenu(fileName = "DB_Item", menuName = "DB/Item", order = -1)]
+public class DB_Item : ScriptableObjectData
 {
     public override void SetDictionaryData()
     {
@@ -32,14 +33,14 @@ public class DB_Equipment : ScriptableObjectData
             if (!keyValues.ContainsKey("index"))
                 continue;
 
-            EquipmentData newData = new EquipmentData();
+            ItemData newData = new ItemData();
 
             newData.index = int.Parse(keyValues[nameof(newData.index)]);
             newData.name = keyValues[nameof(newData.name)];
             newData.attackBonus = int.Parse(keyValues[nameof(newData.attackBonus)]);
             newData.defenseBonus = int.Parse(keyValues[nameof(newData.defenseBonus)]);
 
-            Managers.Instance.dataManager.equipmentData.Add(newData.index, newData);
+            Managers.Instance.dataManager.itemData.Add(newData.index, newData);
         }
     }
 }

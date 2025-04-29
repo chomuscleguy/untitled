@@ -13,7 +13,15 @@ public class StatusData
     public int health;
     public int attack;
     public int defense;
-    public List<EquipmentData> equipmentList;
+    public List<ItemData> equipmentList;
+    public List<InventoryItem> inventoryList;
+}
+[Serializable]
+public class InventoryItem
+{
+    public int index;
+    public string name;
+    public int amount;
 }
 
 [CreateAssetMenu(fileName = "DB_Status", menuName = "DB/Status", order = -1)]
@@ -48,25 +56,57 @@ public class DB_Status : ScriptableObjectData
             newData.attack = int.Parse(keyValues[nameof(newData.attack)]);
             newData.defense = int.Parse(keyValues[nameof(newData.defense)]);
 
-            newData.equipmentList = new List<EquipmentData>();
+            newData.equipmentList = new List<ItemData>();
+            newData.inventoryList = new List<InventoryItem>();
 
-            if (keyValues.ContainsKey("equipment"))
+            if (keyValues.ContainsKey("equip"))
             {
-                string equipmentData = keyValues["equipment"];
+                string equipmentData = keyValues["equip"];
                 string[] equipmentItems = equipmentData.Split(';');
 
-                foreach (string item in equipmentItems)
+                foreach (string equip in equipmentItems)
                 {
-                    if (int.TryParse(item.Trim(), out int equipmentIndex))
+                    if (int.TryParse(equip.Trim(), out int itemIndex))
                     {
-                        if (Managers.Instance.dataManager.equipmentData.TryGetValue(equipmentIndex, out EquipmentData equipment))
+                        if (Managers.Instance.dataManager.itemData.TryGetValue(itemIndex, out ItemData item))
                         {
-                            newData.equipmentList.Add(equipment);
+                            newData.equipmentList.Add(item);
                         }
                     }
                 }
-                Managers.Instance.dataManager.statusData.Add(newData.index, newData);
             }
+            if (keyValues.ContainsKey("inventory"))
+            {
+                string inventoryData = keyValues["inventory"];
+                string[] inventoryItems = inventoryData.Split(';');
+
+                foreach (string inventoryItem in inventoryItems)
+                {
+                    string[] itemData = inventoryItem.Split('.');
+
+                    if (itemData.Length == 2)
+                    {
+                        int itemIndex;
+                        int itemAmount;
+
+                        if (int.TryParse(itemData[0].Trim(), out itemIndex) && int.TryParse(itemData[1].Trim(), out itemAmount))
+                        {
+                            if (Managers.Instance.dataManager.itemData.TryGetValue(itemIndex, out ItemData item))
+                            {
+                                InventoryItem newItem = new InventoryItem()
+                                {
+                                    index = item.index,  
+                                    name = item.name,    
+                                    amount = itemAmount         
+                                };
+
+                                newData.inventoryList.Add(newItem);
+                            }
+                        }
+                    }
+                }
+            }
+            Managers.Instance.dataManager.statusData.Add(newData.index, newData);
         }
     }
 }
