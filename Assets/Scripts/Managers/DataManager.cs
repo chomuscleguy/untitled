@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
 {
     public  List<ScriptableObjectData> DataSO = new List<ScriptableObjectData>();
     public SerializedDictionary<int, StatusData> statusData = new SerializedDictionary<int, StatusData>();
+    public SerializedDictionary<int, EquipmentData> equipmentData = new SerializedDictionary<int, EquipmentData>();
 
 
     private void OnEnable()
